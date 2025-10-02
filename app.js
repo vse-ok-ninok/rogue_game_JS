@@ -100,13 +100,32 @@ class Game {
                 continue;
             }
             
+            if (!this.checkRoomIsolated(x, y, width, height)) {
+                continue;
+            };
             // Рисуем комнату
             for (let j = y; j < y + height; j++) {
                 for (let k = x; k < x + width; k++) {
                     this.matrix[j][k] = 'T';
                     }
                 };
+            };
+    };
+
+    checkRoomIsolated(x, y, width, height) {
+        for (let i = y; i < y + height; i++) {
+            for (let j = x; j < x + width; j++) {
+                if (
+                    (i > 0 && this.matrix[i-1][j] === 'T') ||
+                    (i < this.matrix.length-1 && this.matrix[i+1][j] === 'T') ||
+                    (j > 0 && this.matrix[i][j-1] === 'T') ||
+                    (j < this.matrix[0].length-1 && this.matrix[i][j+1] === 'T')
+                ) {
+                    return true;
+                };
             }
+        };
+        return false;
     };
 
     renderCard() {
